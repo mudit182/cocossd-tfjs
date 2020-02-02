@@ -1,0 +1,23 @@
+
+<div class="cell" fxLayout="row" fxLayoutAlign="start start" (click)="predict()">
+  <div class="image-container">
+    <img [src]="getImagePath()" #imageSelector class="image" alt="sample image">
+    <div class="bounding-box" *ngFor="let bbox of bboxesForCss"
+      [ngStyle]="{'top': bbox.top, 'left': bbox.left, 'width': bbox.width, 'height': bbox.height }">
+    </div>
+  </div>
+  <div *ngIf="detections.length > 0" class="predictions-holder"
+    fxLayout="column" fxLayoutAlign="center">
+    <ul>
+      <li *ngFor="let detection of detections" class="prediction"
+        fxLayout="row" fxLayoutAlign="start center">
+        <p fxFlex="0 0 30px" class="prediction-prob">
+          {{ detection.score * 100 | number : '1.1-1' }}%
+        </p>
+        <p class="prediction-class">
+          {{ detection.class | titlecase }}
+        </p>
+      </li>
+    </ul>
+  </div>
+</div>
